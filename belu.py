@@ -35,8 +35,13 @@ def bleu_en(pred_seq, label_seq, k):
 
 def bleu_cn(pred_seq, label_seq, k):
     pred_tokens, label_tokens = jieba.lcut(pred_seq, cut_all=False), jieba.lcut(label_seq, cut_all=False)
-
     len_pred, len_label = len(pred_tokens), len(label_tokens)
+    if len_label <= 1:
+        k = 1
+    if len_label == 0:
+        print(pred_seq)
+        print(label_seq)
+        return 0
     score = math.exp(min(0, 1 - len_label / len_pred))
     for n in range(1, k + 1):
         num_matches, label_subs = 0, collections.defaultdict(int)
@@ -46,6 +51,11 @@ def bleu_cn(pred_seq, label_seq, k):
             if label_subs[' '.join(pred_tokens[i: i +n])] > 0:
                 num_matches += 1
                 label_subs[" ".join(pred_tokens[i: i + n])] -= 1
+        if len_pred - n + 1 == 0:
+            print(pred_seq)
+            print(label_seq)
+            print('11111111111111111')
+            return 0
         score *= math.pow(num_matches / (len_pred -n + 1), math.pow(0.5, n))
     return score
 
