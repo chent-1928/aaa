@@ -23,6 +23,10 @@ def bleu_en(pred_seq, label_seq, k):
             if label_subs[' '.join(pred_tokens[i: i +n])] > 0:
                 num_matches += 1
                 label_subs[" ".join(pred_tokens[i: i + n])] -= 1
+        if len_pred - n + 1 == 0:
+            print(pred_seq)
+            print('11111111111111111')
+            return 0
         score *= math.pow(num_matches / (len_pred - n + 1), math.pow(0.5, n))
     return score
 
