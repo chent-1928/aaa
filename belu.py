@@ -73,7 +73,7 @@ def bleu_cn(pred_seq, label_seq, k):
 #     score_cn = bleu_cn(pred, label, 2)
 
 url = "http://10.4.0.141:8000/v1/chat/completions"
-files = ["/home/chentao/files/aaa/files/en_2_zh_test.json"]
+files = ["/home/chentao/files/aaa/files/zh_2_en_test.json"]
 
 
 def request_api(url, request_body):
@@ -122,7 +122,7 @@ for file in files:
               "stream": False
             }
         predict = request_api(url, request_body)
-        score_en = bleu_cn(predict, data['output'], 2)
+        score_en = bleu_en(predict, data['output'], 2)
         if score_en <= 0.1:
             a1 += 1
         elif score_en <= 0.2:
