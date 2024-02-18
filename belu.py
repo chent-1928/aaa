@@ -13,6 +13,7 @@ def bleu_en(pred_seq, label_seq, k):
         k = 1
     if len_label == 0:
         print(pred_seq)
+        print(label_seq)
         return 0
     score = math.exp(min(0, 1 - len_label / len_pred))
     for n in range(1, k + 1):
@@ -25,6 +26,7 @@ def bleu_en(pred_seq, label_seq, k):
                 label_subs[" ".join(pred_tokens[i: i + n])] -= 1
         if len_pred - n + 1 == 0:
             print(pred_seq)
+            print(label_seq)
             print('11111111111111111')
             return 0
         score *= math.pow(num_matches / (len_pred - n + 1), math.pow(0.5, n))
